@@ -1,4 +1,4 @@
-# !!!Replace with your unique project name!!!
+# Displaying what Coloblind People See on Graphs
 
 ## Description
 
