@@ -1,12 +1,12 @@
-# Displaying what Coloblind People See on Graphs
+# How do people with color blindness see Rstudio's themes?
 
 ## Description
 
-!!!Replace with a description of what your program does!!!
+The goal of my program is to ultimately calculate out how much of a problem and which colors could pose problems to people with specific types of coloblindness in Rstudio's color themes.
 
 ## Developer
 
-!!!Replace with your name!!!
+Brandon Leff
 
 ## Example
 
@@ -31,7 +31,7 @@ Here is an example of the program running:
 
 ### Input and Output
 
-!!!Replace with a summary and examples of how input and output have been used effectively and appropriately!!!
+I am using cout and 
 
 ### Decisions
 
