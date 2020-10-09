@@ -27,20 +27,34 @@ Here is an example of the program running:
 
 ### Variables and Data Types
 
-!!!Replace with a summary and examples of how multiple variables have been used with a variety of data types and why they have been used effectively and appropriately!!!
-
+I use variables in the process to extract lines from the text files.
+```
+int num_themes = 10;
+```
 ### Input and Output
 
-I am using cout and 
-
+I am using cout to display lines from the text files.
+```
+cout >> content >> endl;
+```
 ### Decisions
 
 !!!Replace with a summary and examples of how multiple decision constructs have been used effectively and appropriately!!!
 
 ### Iteration
 
-!!!Replace with a summary and examples of how iteration has been used effectively and appropriately!!!
+I use iteration to loop through the array of file names.
+
+```
+for(int file_index = 0; file_index < num_themes; file_index++) {
+```
 
 ### File Input and Output
 
-!!!Replace with a summary and examples of how input and/or output of files have been used effectively and appropriately!!!
+So far all my code is about file input. I am taking multiple text files and extracting lines that contain the word "color". 
+
+```
+ifstream file_stream;
+    file_stream.open (themes[file_index], ios::in);
+    if(!file_stream.is_open()) {
+```

@@ -16,17 +16,17 @@ int main() {
     ifstream file_stream;
     file_stream.open (themes[file_index], ios::in);
     if(!file_stream.is_open()) {
-      cout << "File can not be opened!" << endl;
+      cout << "Unable to open file." << endl;
     }
     else {
       string content;
 
       while(getline(file_stream,content)) {
-        if (content.find("color:") != string::npos) {
+        if(content.find("color:") != string::npos) {
                 cout << content << endl;
-            }
+        }
       }
-    }
+      
   }
   return 0;
 }
