@@ -9,7 +9,6 @@ using namespace std;
 void create_outfile(string rfile);
 int display_themes();
 vector <string> convert_colors(string rfile_2);
-string loop_change(string& current);
 void display_outcome(vector <string> convert_colors_vec);
 
 // Main Program
@@ -146,7 +145,4 @@ void display_outcome(vector <string> convert_colors_vec) {
   cout << greenCount << " green colors found." << endl;
   cout << bothCount << " red/green colors found." << endl;
 }
-
-
-
 
