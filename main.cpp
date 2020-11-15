@@ -3,30 +3,56 @@
 
 using namespace std;
 
+// Function Prototypes
+
+void create_outfile(string rfile);
+
+
+// Main Program
+
 int main() {
 
-  string themes_total[] = {"ambiance.rstheme", "chaos.rstheme", "chrome.rstheme", "clouds_midnight.rstheme", "clouds.rstheme", "cobalt.rstheme", "crimson_editor.rstheme", "dawn.rstheme","dreamweaver.rstheme", "eclipse.rstheme"};
+  string themes[] = {"ambiance.rstheme"};
+  int num_themes = 1;
 
-  string themes[] = {"ambiance.rstheme"}
+  for (int file_idx = 0; file_idx < num_themes; file_idx++) {
+    string input_file_name = themes[file_idx];
 
-  int num_themes = 10;
-
-  for(int file_index = 0; file_index < num_themes; file_index++) {
-
-    ifstream file_stream;
-    file_stream.open (themes[file_index], ios::in);
-    if(!file_stream.is_open()) {
-      cout << "Unable to open file." << endl;
-    }
-    else {
-      string content;
-
-      while(getline(file_stream,content)) {
-        if(content.find("color:") != string::npos) {
-                cout << content << endl;
-        }
-      }
-      
+    create_outfile(input_file_name);
   }
+
   return 0;
 }
+
+// Functions
+
+void create_outfile(string rfile) {
+  
+  ifstream inputStream;
+    inputStream.open (rfile, ios::in);
+
+    ofstream outputStream;
+    outputStream.open (rfile.substr(0, rfile.length() - 8) + ".colors");
+
+    if(!inputStream.is_open()) {
+      cout << "Unable to open file: " << rfile << "." << endl;
+    }
+    else {
+      string line;
+
+      while (getline(inputStream, line)) {
+        if(line.find("color:") != string::npos) {
+          cout << line << endl;
+          outputStream << line << endl;
+        }
+      }
+
+      outputStream.close();
+
+}
+
+
+
+
+
+
