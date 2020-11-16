@@ -9,7 +9,7 @@ using namespace std;
 void create_outfile(string rfile);
 int display_themes();
 vector <string> convert_colors(string rfile_2);
-void display_outcome(vector <string> convert_colors_vec);
+void display_outcome(vector <string> & convert_colors_vec);
 
 // Main Program
 
@@ -119,14 +119,15 @@ vector <string> convert_colors(string rfile_2) {
   return english_colors;
 }
 
-void display_outcome(vector <string> convert_colors_vec) {
+void display_outcome(vector <string> & convert_colors_vec) {
   cout << convert_colors_vec.size() << " colors were analyzed." << endl;
   
   int redCount = 0;
   int greenCount = 0;
   int bothCount = 0;
+  int vec_size = convert_colors_vec.size();
 
-  for (int i = 0; i < convert_colors_vec.size(); i++) {
+  for (int i = 0; i < vec_size; i++) {
     string testing;
     testing = convert_colors_vec[i];
 
