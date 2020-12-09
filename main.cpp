@@ -4,33 +4,48 @@
 
 using namespace std;
 
+
 // Function Prototypes
 
 void create_outfile(string rfile);
 int display_themes();
+char display_cb();
 vector <string> convert_colors(string rfile_2);
-void display_outcome(vector <string> & convert_colors_vec);
+void display_outcome(vector <string> & convert_colors_vec, char answer);
+
+class user {
+   public:
+    int theme_choice;
+    char cb_choice;
+    user() {
+      theme_choice = 1;
+      cb_choice = 'A';
+    } 
+};
 
 // Main Program
 
 int main() {
 
-  string themes[] = {"ambiance.rstheme", "chaos.rstheme", "dawn.rstheme", "eclipse.rstheme"};
-  string theme_colors[] = {"ambiance.colors", "chaos.colors", "dawn.colors", "eclipse.colors"};
+  user a;
 
-  int answer;
+  string themes[] = {"ambiance.rstheme", "chaos.rstheme", "dawn.rstheme", "eclipse.rstheme", "textmate.rstheme"};
+  string theme_colors[] = {"ambiance.colors", "chaos.colors", "dawn.colors", "eclipse.colors", "textmate.colors"};
+
 
   do {
-    answer = display_themes();
+    a.cb_choice = display_cb();
+    a.theme_choice = display_themes();
 
-    if(answer < 5) {
-      string input_file_name = themes[answer - 1];
+
+    if(a.theme_choice  < 6) {
+      string input_file_name = themes[a.theme_choice  - 1];
       create_outfile(input_file_name);
-      string color_file_name = theme_colors[answer -1];
+      string color_file_name = theme_colors[a.theme_choice  -1];
       vector <string> post_convert_vec = convert_colors(color_file_name);
-      display_outcome(post_convert_vec);
+      display_outcome(post_convert_vec,a.cb_choice);
     }
- } while(answer < 5);
+ } while(a.theme_choice  < 6);
 
   return 0;
 }
@@ -77,13 +92,31 @@ int display_themes() {
     cout << "(2) Chaos\n";
     cout << "(3) Dawn\n";
     cout << "(4) Eclipse\n";
-    cout << "(5) Exit Program\n";
+    cout << "(5) Textmate\n";
+    cout << "(6) Exit Program\n";
 
     cin >> user_file;
-  } while(user_file != 1 && user_file != 2 && user_file != 3 && user_file != 4 && user_file != 5);
+  } while(user_file != 1 && user_file != 2 && user_file != 3 && user_file != 4 && user_file != 5 && user_file != 6);
   cin.ignore();
 
   return user_file;
+}
+
+char display_cb() {
+  char user_cb;
+
+  cout << "What type of color blindness do you want to analyze?" << endl;
+
+  do {
+    cout << "Options:\n";
+    cout << "(R) Red/Green\n";
+    cout << "(B) Blue/Yellow\n";
+
+    cin >> user_cb;
+  } while(user_cb != 'R' && user_cb != 'B');
+  cin.ignore();
+
+  return user_cb;
 }
 
 vector <string> convert_colors(string rfile_2) {
@@ -101,15 +134,22 @@ vector <string> convert_colors(string rfile_2) {
   while (getline(inputStream, line_2)) {
     bool isRed = line_2.substr(0,2) == "ff" || line_2.substr(0,2) == "FF";
     bool isGreen = line_2.substr(2,2) == "ff" || line_2.substr(2,2) == "FF";
+    bool isBlue = line_2.substr(4,2) == "ff" || line_2.substr(4,2) == "FF";
 
-    if(isRed && !isGreen) {
+    if(isRed && !isGreen && !isBlue) {
       english_colors.push_back("red");
     }
-    else if(isGreen && !isRed) {
+    else if(isGreen && !isRed && !isBlue) {
       english_colors.push_back("green");
     }
-    else if(isRed && isGreen) {
-      english_colors.push_back("both");
+    else if(isRed && isGreen && !isBlue) {
+      english_colors.push_back("yellow");
+    }
+    else if(isBlue && !isGreen && !isRed) {
+      english_colors.push_back("blue");
+    }
+    else if(isBlue && isGreen && !isRed) {
+      english_colors.push_back("cyan");
     }
     else {
       english_colors.push_back("null");
@@ -119,12 +159,14 @@ vector <string> convert_colors(string rfile_2) {
   return english_colors;
 }
 
-void display_outcome(vector <string> & convert_colors_vec) {
+void display_outcome(vector <string> & convert_colors_vec, char answer) {
   cout << convert_colors_vec.size() << " colors were analyzed." << endl;
   
   int redCount = 0;
   int greenCount = 0;
-  int bothCount = 0;
+  int yCount = 0;
+  int bCount = 0;
+  int cCount = 0;
   int vec_size = convert_colors_vec.size();
 
   for (int i = 0; i < vec_size; i++) {
@@ -137,13 +179,25 @@ void display_outcome(vector <string> & convert_colors_vec) {
     if(testing == "green") {
       greenCount = greenCount + 1;
     }
-    if(testing == "both") {
-      bothCount = bothCount + 1;
+    if(testing == "yellow") {
+      yCount = yCount + 1;
     }
-  }
+    if(testing == "blue") {
+      bCount = bCount + 1;
+    }
+    if(testing == "cyan") {
+      cCount = cCount + 1;
+    }
 
+  }
+  if(answer == 'R') {
   cout << redCount << " red colors found." << endl;
   cout << greenCount << " green colors found." << endl;
-  cout << bothCount << " red/green colors found." << endl;
+  }
+  if(answer == 'B') {
+  cout << yCount << " yellow colors found." << endl;
+  cout << bCount << " blue colors found." << endl;
+  cout << cCount << " cyan colors found." << endl;
+  }
 }
 
