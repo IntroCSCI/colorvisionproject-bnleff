@@ -35,7 +35,6 @@ class theme
     // Member function prototypes...
 
     string create_fn(int theme_choice);
-    void create_outfile(string rfile);
     string create_col(int theme_choice);
 
 };
