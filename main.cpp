@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include "theme.h"
 
 using namespace std;
 
@@ -29,20 +30,17 @@ int main() {
 
   user a;
 
-  string themes[] = {"ambiance.rstheme", "chaos.rstheme", "dawn.rstheme", "eclipse.rstheme", "textmate.rstheme"};
-  string theme_colors[] = {"ambiance.colors", "chaos.colors", "dawn.colors", "eclipse.colors", "textmate.colors"};
-
+  theme b;
 
   do {
     a.cb_choice = display_cb();
     a.theme_choice = display_themes();
 
-
-    if(a.theme_choice  < 6) {
-      string input_file_name = themes[a.theme_choice  - 1];
-      create_outfile(input_file_name);
-      string color_file_name = theme_colors[a.theme_choice  -1];
-      vector <string> post_convert_vec = convert_colors(color_file_name);
+     if(a.theme_choice  < 6) {
+      b.create_fn(a.theme_choice);
+      create_outfile(b.input_file_name);
+      b.create_col(a.theme_choice);
+      vector <string> post_convert_vec = convert_colors(b.color_file_name);
       display_outcome(post_convert_vec,a.cb_choice);
     }
  } while(a.theme_choice  < 6);
